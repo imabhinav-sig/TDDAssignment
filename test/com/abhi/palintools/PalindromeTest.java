@@ -18,6 +18,7 @@ import static org.mockito.Mockito.*;
 
 public class PalindromeTest {
 
+    @Mock
     FileInput file;
     GFG gfg;
     GFG gfgNew;
