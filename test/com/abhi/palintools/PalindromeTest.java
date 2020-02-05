@@ -5,6 +5,7 @@ import com.abhi.GFG;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.Spy;
 
 import java.io.IOException;
 
@@ -19,13 +20,20 @@ public class PalindromeTest {
 
     FileInput file;
     GFG gfg;
+    GFG gfgNew;
+
+    @Spy
+    FileInput newFile;
 
     @Before
     public void setup(){
 //        System.out.println("Setup Running");
         file = mock(FileInput.class);
         gfg = new GFG();
+        gfgNew = new GFG();
         gfg.setFileObject(file);
+        newFile = spy(new FileInput());
+        gfgNew.setFileObject(newFile);
     }
 
     @Test
@@ -46,8 +54,9 @@ public class PalindromeTest {
 
     @Test
     public void fileInputInValidPalindrome() throws IOException {
-        when(file.readFile(anyString())).thenReturn("qwerty");
-        boolean result = gfg.isPalindrome();
+        doReturn("qwerty").when(newFile).readFile(anyString());
+//        when(file.readFile(anyString())).thenReturn("qwerty");
+        boolean result = gfgNew.isPalindrome();
 //        verify(file).readFile(anyString());
         assertFalse(result);
     }
